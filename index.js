@@ -68,7 +68,7 @@ exports.each = function(dest, fn) {
   fs.readdir(dest, function(err, files) {
     if (err) return fn(err);
 
-    files.forEach(function(file, i) {
+    files.sort().forEach(function(file, i) {
       fn(null, dest + file, i);
     });
   });

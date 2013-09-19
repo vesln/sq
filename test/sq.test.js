@@ -1,8 +1,22 @@
+/**
+ * Core dependencies.
+ */
+
 var path = require('path')
   , fs = require('fs')
   , assert = require('assert')
-  , rimraf = require('rimraf')
-  , sq = require('../')
+
+/**
+ * External dependencies.
+ */
+
+var rimraf = require('rimraf');
+
+/**
+ * Test setup.
+ */
+
+var sq = require('../')
   , dest = path.join(__dirname, 'tmp', path.sep)
   , template = fs.readFileSync(__dirname + '/support/template.js', 'utf8');
 
