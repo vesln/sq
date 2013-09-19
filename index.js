@@ -64,6 +64,16 @@ exports.name = function(suffix, sep, ext) {
   return prefix + sep + suffix + ext;
 };
 
+exports.each = function(dest, fn) {
+  fs.readdir(dest, function(err, files) {
+    if (err) return fn(err);
+
+    files.forEach(function(file, i) {
+      fn(null, dest + file, i);
+    });
+  });
+};
+
 /**
  * @returns {String}
  * @api private

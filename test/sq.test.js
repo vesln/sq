@@ -41,7 +41,29 @@ describe('#generate', function() {
   });
 });
 
-describe('#each', function(){});
+describe('#each', function(){
+  beforeEach(recreateTemp);
+
+  it('iterates over all files in the supplied destination in ascending order', function(done) {
+    sq.generate(dest, { suffix: 'first' }, function(err, file) {
+      sq.generate(dest, { suffix: 'second' }, function(err, file) {
+        sq.generate(dest, { suffix: 'third' }, function(err, file) {
+          sq.each(dest, function(err, file, i) {
+            assert(err === null);
+
+            switch(i) {
+              case 0: assert(strip(file) === 'first'); break;
+              case 1: assert(strip(file) === 'second'); break;
+              case 2: assert(strip(file) === 'third'); done(); break;
+            }
+          });
+
+        });
+      });
+    });
+  });
+});
+
 describe('#remove', function(){});
 
 function recreateTemp(done) {
@@ -50,4 +72,8 @@ function recreateTemp(done) {
     fs.mkdirSync(dest);
     done();
   });
+}
+
+function strip(file) {
+  return file.replace(dest, '').replace(/[0-9]/g, '');
 }
