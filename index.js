@@ -20,9 +20,10 @@ exports.generate = function(dest, opts, fn) {
     opts = {};
   }
 
-  var name = opts.name || '';
-  var template = opts.template || '';
-  var file = getPath(dest, name);
+  var suffix = opts.suffix || ''
+    , template = opts.template || ''
+    , sep = opts.sep || ''
+    , file = path.join(dest, this.name(suffix, sep));
 
   fs.writeFile(file, template, function(err) {
     if (err) return fn(err);
@@ -30,29 +31,15 @@ exports.generate = function(dest, opts, fn) {
   });
 };
 
-function getPath(dest, name) {
-  return path.join(dest, seq() + name);
-}
+exports.name = function(suffix, sep) {
+  suffix = suffix || '';
+  sep = sep || '';
 
-/**
- * @returns {String}
- * @api private
- */
+  var date = new Date
+    , parts = null
+    , prefix = null;
 
-function pad(str, len) {
-  str += '';
-  return str.length >= len ? str : new Array(len - str.length + 1).join('0') + str;
-}
-
-/**
- * @returns {String}
- * @api private
- */
-
-function seq() {
-  var date = new Date;
-
-  var parts = [
+  parts = [
     date.getUTCFullYear(),
     date.getUTCMonth() + 1,
     date.getUTCDate(),
@@ -62,8 +49,20 @@ function seq() {
     date.getUTCMilliseconds(),
   ];
 
-  return parts.map(function(part, i) {
+  prefix = parts.map(function(part, i) {
     var len = i === parts.length - 1 ? 3 : 2;
     return pad(part, len);
   }).join('');
+
+  return prefix + sep + suffix;
+};
+
+/**
+ * @returns {String}
+ * @api private
+ */
+
+function pad(str, len) {
+  str += '';
+  return str.length >= len ? str : new Array(len - str.length + 1).join('0') + str;
 }

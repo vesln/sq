@@ -31,9 +31,16 @@ describe('#generate', function() {
       }, 10);
     });
   });
+
+  it('supports a custom suffix and a custom separator', function(done) {
+    sq.generate(dest, { suffix: 'simple_name', sep: '_' }, function(err, file) {
+      assert(err === null);
+      assert(file.replace(dest, '').replace(/[0-9]/g, '') === '_simple_name')
+      done();
+    });
+  });
 });
 
-describe('#name', function(){});
 describe('#each', function(){});
 describe('#remove', function(){});
 
