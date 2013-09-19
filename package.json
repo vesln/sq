@@ -19,6 +19,7 @@
     "url": "https://github.com/vesln/sq/issues"
   },
   "devDependencies": {
-    "mocha": "~1.13.0"
+    "mocha": "~1.13.0",
+    "rimraf": "~2.2.2"
   }
 }

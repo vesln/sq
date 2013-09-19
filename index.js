@@ -15,6 +15,11 @@ var fs = require('fs')
  */
 
 exports.generate = function(dest, opts, fn) {
+  if (arguments.length === 2) {
+    fn = opts;
+    opts = {};
+  }
+
   var name = opts.name || '';
   var template = opts.template || '';
   var file = getPath(dest, name);
@@ -30,22 +35,16 @@ function getPath(dest, name) {
 }
 
 /**
- * Zero-pad a string with the length of 1.
- *
- * @param {String} str
  * @returns {String}
  * @api private
  */
 
-function pad(str) {
+function pad(str, len) {
   str += '';
-  if (str.length === 1) str = '0' + str;
-  return str;
+  return str.length >= len ? str : new Array(len - str.length + 1).join('0') + str;
 }
 
 /**
- * YYYYMMDDHHMMSS
- *
  * @returns {String}
  * @api private
  */
@@ -59,10 +58,12 @@ function seq() {
     date.getUTCDate(),
     date.getUTCHours(),
     date.getUTCMinutes(),
-    date.getUTCSeconds()
+    date.getUTCSeconds(),
+    date.getUTCMilliseconds(),
   ];
 
-  return parts.map(function(part) {
-    return pad(part);
+  return parts.map(function(part, i) {
+    var len = i === parts.length - 1 ? 3 : 2;
+    return pad(part, len);
   }).join('');
 }
