@@ -32,10 +32,10 @@ describe('#generate', function() {
     });
   });
 
-  it('supports a custom suffix and a custom separator', function(done) {
-    sq.generate(dest, { suffix: 'simple_name', sep: '_' }, function(err, file) {
+  it('supports a custom suffix, custom separator and a custom extension', function(done) {
+    sq.generate(dest, { suffix: 'simple_name', sep: '_', ext: '.js' }, function(err, file) {
       assert(err === null);
-      assert(file.replace(dest, '').replace(/[0-9]/g, '') === '_simple_name')
+      assert(file.replace(dest, '').replace(/[0-9]/g, '') === '_simple_name.js')
       done();
     });
   });

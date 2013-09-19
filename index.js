@@ -20,10 +20,8 @@ exports.generate = function(dest, opts, fn) {
     opts = {};
   }
 
-  var suffix = opts.suffix || ''
-    , template = opts.template || ''
-    , sep = opts.sep || ''
-    , file = path.join(dest, this.name(suffix, sep));
+  var template = opts.template || ''
+    , file = path.join(dest, this.name(opts.suffix, opts.sep, opts.ext));
 
   fs.writeFile(file, template, function(err) {
     if (err) return fn(err);
@@ -31,9 +29,18 @@ exports.generate = function(dest, opts, fn) {
   });
 };
 
-exports.name = function(suffix, sep) {
+/**
+ * @param {String} suffix
+ * @param {String} separator
+ * @param {String} extension
+ * @returns {String}
+ * @api public
+ */
+
+exports.name = function(suffix, sep, ext) {
   suffix = suffix || '';
   sep = sep || '';
+  ext = ext || '';
 
   var date = new Date
     , parts = null
@@ -54,7 +61,7 @@ exports.name = function(suffix, sep) {
     return pad(part, len);
   }).join('');
 
-  return prefix + sep + suffix;
+  return prefix + sep + suffix + ext;
 };
 
 /**
