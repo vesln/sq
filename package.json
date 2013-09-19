@@ -20,6 +20,7 @@
   },
   "devDependencies": {
     "mocha": "~1.13.0",
-    "rimraf": "~2.2.2"
+    "rimraf": "~2.2.2",
+    "jshint": "~2.1.10"
   }
 }

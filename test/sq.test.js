@@ -4,7 +4,7 @@
 
 var path = require('path')
   , fs = require('fs')
-  , assert = require('assert')
+  , assert = require('assert');
 
 /**
  * External dependencies.
@@ -49,7 +49,7 @@ describe('#generate', function() {
   it('supports a custom suffix, custom separator and a custom extension', function(done) {
     sq.generate(dest, { suffix: 'simple_name', sep: '_', ext: '.js' }, function(err, file) {
       assert(err === null);
-      assert(file.replace(dest, '').replace(/[0-9]/g, '') === '_simple_name.js')
+      assert(file.replace(dest, '').replace(/[0-9]/g, '') === '_simple_name.js');
       done();
     });
   });
