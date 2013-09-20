@@ -65,12 +65,28 @@ exports.name = function(suffix, sep, ext) {
 };
 
 exports.each = function(dest, fn) {
-  fs.readdir(dest, function(err, files) {
+  this.files(dest, function(err, files) {
     if (err) return fn(err);
 
-    files.sort().forEach(function(file, i) {
-      fn(null, dest + file, i);
+    files.forEach(function(file, i) {
+      fn(null, path.join(dest, file), i);
     });
+  });
+};
+
+exports.remove = function(dest, fn) {
+  var self = this;
+
+  this.files(dest, function(err, files) {
+    if (err) return fn(err);
+    fs.unlink(path.join(dest, files.reverse()[0]), fn);
+  });
+};
+
+exports.files = function(dest, fn) {
+  fs.readdir(dest, function(err, files) {
+    if (err) return fn(err);
+    fn(null, files.sort());
   });
 };
 
