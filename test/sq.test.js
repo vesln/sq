@@ -2,9 +2,9 @@
  * Core dependencies.
  */
 
-var path = require('path')
-  , fs = require('fs')
-  , assert = require('assert');
+var path = require('path');
+var fs = require('fs');
+var assert = require('assert');
 
 /**
  * External dependencies.
@@ -16,9 +16,9 @@ var rimraf = require('rimraf');
  * Test setup.
  */
 
-var sq = require('../')
-  , dest = path.join(__dirname, 'tmp', path.sep)
-  , template = fs.readFileSync(__dirname + '/support/template.js', 'utf8');
+var sq = require('../');
+var dest = path.join(__dirname, 'tmp', path.sep);
+var template = fs.readFileSync(__dirname + '/support/template.js', 'utf8');
 
 describe('sq', function() {
   beforeEach(recreateTemp);
@@ -56,7 +56,7 @@ describe('sq', function() {
     });
   });
 
-  describe('#each', function(){
+  describe('#each', function() {
     it('iterates over all files in the supplied destination in ascending order', function(done) {
       sq.generate(dest, { suffix: 'first' }, function(err, file) {
         sq.generate(dest, { suffix: 'second' }, function(err, file) {
@@ -75,22 +75,22 @@ describe('sq', function() {
         });
       });
     });
-});
+  });
 
-describe('#remove', function() {
-  it('removes the latest file in the given destination', function(done) {
-    sq.generate(dest, { suffix: '1' }, function(err, file1) {
-      sq.generate(dest, { suffix: '2' }, function(err, file2) {
-        sq.remove(dest, function(err) {
-          assert(err === null);
-          assert(fs.existsSync(file1));
-          assert(!fs.existsSync(file2));
-          done();
+  describe('#remove', function() {
+    it('removes the latest file in the given destination', function(done) {
+      sq.generate(dest, { suffix: '1' }, function(err, file1) {
+        sq.generate(dest, { suffix: '2' }, function(err, file2) {
+          sq.remove(dest, function(err) {
+            assert(err === null);
+            assert(fs.existsSync(file1));
+            assert(!fs.existsSync(file2));
+            done();
+          });
         });
       });
     });
   });
-});
 });
 
 

@@ -2,8 +2,8 @@
  * Core dependencies.
  */
 
-var fs = require('fs')
-  , path = require('path');
+var fs = require('fs');
+var path = require('path');
 
 /**
  * Generate a new file.
@@ -20,8 +20,8 @@ exports.generate = function(dest, opts, fn) {
     opts = {};
   }
 
-  var template = opts.template || ''
-    , file = path.join(dest, this.name(opts.suffix, opts.sep, opts.ext));
+  var template = opts.template || '';
+  var file = path.join(dest, this.name(opts.suffix, opts.sep, opts.ext));
 
   fs.writeFile(file, template, function(err) {
     if (err) return fn(err);
@@ -38,13 +38,13 @@ exports.generate = function(dest, opts, fn) {
  */
 
 exports.name = function(suffix, sep, ext) {
+  var date = new Date;
+  var parts = null;
+  var prefix = null;
+
   suffix = suffix || '';
   sep = sep || '';
   ext = ext || '';
-
-  var date = new Date
-    , parts = null
-    , prefix = null;
 
   parts = [
     date.getUTCFullYear(),
