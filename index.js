@@ -30,6 +30,12 @@ exports.generate = function(dest, opts, fn) {
 };
 
 /**
+ * Generate a new name.
+ *
+ * prefix: year month date hours minutes seconds milliseconds
+ * separator: optional
+ * suffix: optional
+ *
  * @param {String} suffix
  * @param {String} separator
  * @param {String} extension
@@ -64,6 +70,15 @@ exports.name = function(suffix, sep, ext) {
   return prefix + sep + suffix + ext;
 };
 
+/**
+ * Call the given `fn` once for each file
+ * in `dest.
+ *
+ * @param {String} dest
+ * @param {Fucntion} callback
+ * @api public
+ */
+
 exports.each = function(dest, fn) {
   this.files(dest, function(err, files) {
     if (err) return fn(err);
@@ -74,6 +89,14 @@ exports.each = function(dest, fn) {
   });
 };
 
+/**
+ * Remove the last file in the given `dest`.
+ *
+ * @param {String} dest
+ * @param {Function} callback
+ * @api public
+ */
+
 exports.removeLast = function(dest, fn) {
   var self = this;
 
@@ -82,6 +105,14 @@ exports.removeLast = function(dest, fn) {
     fs.unlink(path.join(dest, files.reverse()[0]), fn);
   });
 };
+
+/**
+ * Return all files, sorted by name. Ignores "dot" files.
+ *
+ * @param {String} dest
+ * @param {Function} cb
+ * @api public
+ */
 
 exports.files = function(dest, fn) {
   fs.readdir(dest, function(err, files) {
@@ -96,6 +127,10 @@ exports.files = function(dest, fn) {
 };
 
 /**
+ * Zero pad a string.
+ *
+ * @param {String} str
+ * @param {String} desired length
  * @returns {String}
  * @api private
  */
