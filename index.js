@@ -74,7 +74,7 @@ exports.each = function(dest, fn) {
   });
 };
 
-exports.remove = function(dest, fn) {
+exports.removeLast = function(dest, fn) {
   var self = this;
 
   this.files(dest, function(err, files) {

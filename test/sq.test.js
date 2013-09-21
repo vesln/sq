@@ -77,11 +77,11 @@ describe('sq', function() {
     });
   });
 
-  describe('#remove', function() {
+  describe('#removeLast', function() {
     it('removes the latest file in the given destination', function(done) {
       sq.generate(dest, { suffix: '1' }, function(err, file1) {
         sq.generate(dest, { suffix: '2' }, function(err, file2) {
-          sq.remove(dest, function(err) {
+          sq.removeLast(dest, function(err) {
             assert(err === null);
             assert(fs.existsSync(file1));
             assert(!fs.existsSync(file2));
