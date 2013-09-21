@@ -93,11 +93,11 @@ describe('sq', function() {
   });
 });
 
-
 function recreateTemp(done) {
   rimraf(dest, function(err) {
     if (err) throw err;
     fs.mkdirSync(dest);
+    fs.writeFileSync(path.join(dest, '.keep'));
     done();
   });
 }

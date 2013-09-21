@@ -86,7 +86,12 @@ exports.removeLast = function(dest, fn) {
 exports.files = function(dest, fn) {
   fs.readdir(dest, function(err, files) {
     if (err) return fn(err);
-    fn(null, files.sort());
+
+    files = files.sort().filter(function(file) {
+      return !file.match(/^\./);
+    });
+
+    fn(null, files);
   });
 };
 
