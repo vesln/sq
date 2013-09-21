@@ -1,7 +1,7 @@
 {
   "name": "sq",
-  "version": "0.0.0",
-  "description": "",
+  "version": "0.0.1",
+  "description": "Timestamped file generator",
   "main": "index.js",
   "directories": {
     "test": "test"

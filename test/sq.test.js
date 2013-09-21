@@ -33,7 +33,7 @@ describe('sq', function() {
       });
     });
 
-    it('builds a unique sequential filename', function(done) {
+    it('builds a unique timestamped filename', function(done) {
       sq.generate(dest, function(err, file) {
         assert(err === null);
 
